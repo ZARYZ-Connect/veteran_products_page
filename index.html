@@ -1,25 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Products — Cookton</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --red:#FE2919;--red-dark:#CC1A0A;--red-light:#FFF0EF;--white:#FFFFFF;--off:#F8F8F8;
+  --black:#111111;--muted:#666666;--border:#E8E8E8;--f:'Poppins',sans-serif;
+}
+
+/* CRITICAL: No scrollbars on html/body ever */
+html {
+  scroll-behavior: smooth;
+  overflow: hidden !important;
+  width: 100%;
+}
+body {
+  font-family: var(--f);
+  color: var(--black);
+  background: var(--white);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden !important;
+  width: 100%;
+}
+
+.eyebrow{display:inline-block;color:var(--red);font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:10px;}
+.products-wrap{width:100%;max-width:1100px;margin:0 auto;padding:0 40px;}
+.cat-heading{display:flex;align-items:center;gap:16px;padding:60px 0 32px;}
+.cat-heading-line{flex:1;height:1px;background:var(--border);}
+.cat-heading-text{display:flex;align-items:center;gap:10px;}
+.cat-icon-wrap{width:40px;height:40px;background:var(--red);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.cat-heading h2{font-size:22px;font-weight:800;color:var(--black);white-space:nowrap;}
+.prod-row{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-bottom:24px;border-radius:16px;overflow:hidden;border:1px solid var(--border);background:var(--white);}
+.prod-img-box{background:var(--off);display:flex;align-items:center;justify-content:center;min-height:280px;overflow:hidden;position:relative;}
+.prod-img-box img{width:100%;height:100%;object-fit:cover;display:block;}
+.prod-img-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:40px;width:100%;height:100%;min-height:280px;}
+.prod-img-placeholder p{font-size:12px;color:rgba(254,41,25,0.4);font-weight:500;}
+.prod-tag-pill{position:absolute;top:14px;left:14px;background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:4px 10px;border-radius:4px;letter-spacing:0.8px;text-transform:uppercase;}
+.prod-info{padding:36px 40px;display:flex;flex-direction:column;justify-content:center;}
+.prod-info .eyebrow{margin-bottom:6px;}
+.prod-info h3{font-size:22px;font-weight:800;color:var(--black);margin-bottom:14px;line-height:1.2;}
+.prod-info p{font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:22px;}
+.prod-features{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:24px;}
+.prod-features li{display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--black);}
+.prod-features li::before{content:'';width:18px;height:18px;min-width:18px;background:var(--red-light);border-radius:50%;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18' fill='%23FE2919'%3E%3Cpath fill-rule='evenodd' d='M14.7 5.3a1 1 0 010 1.4l-6 6a1 1 0 01-1.4 0l-3-3a1 1 0 011.4-1.4L8 10.6l5.3-5.3a1 1 0 011.4 0z' clip-rule='evenodd'/%3E%3C/svg%3E");background-size:cover;margin-top:2px;}
+.prod-variants{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:10px;}
+.variant-card{background:var(--off);border:1px solid var(--border);border-radius:10px;padding:16px;border-left:3px solid var(--red);}
+.variant-card h4{font-size:13px;font-weight:700;margin-bottom:5px;color:var(--black);}
+.variant-card p{font-size:12px;color:var(--muted);line-height:1.55;margin-bottom:0;}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  .products-wrap{padding:0 32px;}
+}
+@media(max-width:900px){
+  .products-wrap{padding:0 24px;}
+  .prod-row{grid-template-columns:1fr;}
+  .prod-img-box{min-height:240px;}
+  .prod-info{padding:28px 28px;}
+  .prod-variants{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:640px){
+  .products-wrap{padding:0 16px;}
+  .cat-heading{padding:40px 0 24px;}
+  .cat-heading h2{font-size:18px;}
+  .prod-info{padding:24px 20px;}
+  .prod-info h3{font-size:18px;}
+  .prod-img-box{min-height:200px;}
+  .prod-variants{grid-template-columns:1fr;}
+  .prod-info p{margin-bottom:16px;}
+}
+@media(max-width:400px){
+  .products-wrap{padding:0 12px;}
+  .prod-info{padding:20px 16px;}
+  .prod-info h3{font-size:16px;}
+  .prod-img-box{min-height:180px;}
+  .cat-heading h2{font-size:16px;}
+  .cat-icon-wrap{width:34px;height:34px;}
+}
+</style>
+</head>
+<body>
+
+<div class="products-wrap">
+
+  <!-- STEAMERS -->
+  <div class="cat-heading" id="steamers">
+    <div class="cat-heading-text">
+      <div class="cat-icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round"><ellipse cx="12" cy="17" rx="8" ry="3"/><path d="M4 17V11M20 17V11M4 11c0-4 8-8 8-8s8 4 8 8"/></svg></div>
+      <h2>Steamers</h2>
+    </div>
+    <div class="cat-heading-line"></div>
+  </div>
+
+  <div class="prod-row">
+    <div class="prod-img-box">
+      <span class="prod-tag-pill">Automatic</span>
+      <img src="https://static.wixstatic.com/media/d24b0f_d572dfeb59a74a26b54527696f26fbf5~mv2.png" alt="Automatic Steamer" onerror="this.style.display='none';this.parentElement.querySelector('.prod-img-placeholder').style.display='flex';"/>
+      <div class="prod-img-placeholder" style="display:none;"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="rgba(254,41,25,0.35)" stroke-width="1.5" stroke-linecap="round"><ellipse cx="12" cy="17" rx="8" ry="3"/><path d="M4 17V11M20 17V11M4 11c0-4 8-8 8-8s8 4 8 8"/></svg><p>Automatic Steamer</p></div>
+    </div>
+    <div class="prod-info">
+      <div class="eyebrow">Steamers</div>
+      <h3>Automatic Steamer</h3>
+      <p>Designed for high-performance commercial kitchens with fully automated steam control. Ensures uniform cooking, energy efficiency, and hygienic operation — ideal for continuous, high-volume food preparation.</p>
+      <ul class="prod-features">
+        <li>Fully automated steam control system</li>
+        <li>Uniform cooking across all compartments</li>
+        <li>Energy efficient — reduced operating costs</li>
+        <li>Hygienic stainless steel construction</li>
+        <li>Ideal for continuous high-volume use</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="prod-row">
+    <div class="prod-img-box">
+      <span class="prod-tag-pill">Semi-Auto</span>
+      <img src="https://static.wixstatic.com/media/d24b0f_79fb842e1f7e40828795332584a67cf2~mv2.png" alt="Semi-Automatic Steamer" onerror="this.style.display='none';this.parentElement.querySelector('.prod-img-placeholder').style.display='flex';"/>
+      <div class="prod-img-placeholder" style="display:none;"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="rgba(254,41,25,0.35)" stroke-width="1.5" stroke-linecap="round"><ellipse cx="12" cy="17" rx="8" ry="3"/><path d="M4 17V11M20 17V11M4 11c0-4 8-8 8-8s8 4 8 8"/></svg><p>Semi-Automatic Steamer</p></div>
+    </div>
+    <div class="prod-info">
+      <div class="eyebrow">Steamers</div>
+      <h3>Semi-Automatic Steamer</h3>
+      <p>Built for reliable steam cooking with manual operational control. Delivers consistent performance with durable stainless steel construction — perfect for restaurants, canteens, and catering units.</p>
+      <ul class="prod-features">
+        <li>Manual control for flexible operation</li>
+        <li>Consistent, reliable steam performance</li>
+        <li>Heavy-duty stainless steel build</li>
+        <li>Suitable for restaurants &amp; canteens</li>
+        <li>Easy to clean and maintain</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- HOT & COLD HOLDING -->
+  <div class="cat-heading" id="holding">
+    <div class="cat-heading-text">
+      <div class="cat-icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M3 10h18M8 6V4M16 6V4"/><circle cx="12" cy="15" r="2"/></svg></div>
+      <h2>Hot &amp; Cold Holding</h2>
+    </div>
+    <div class="cat-heading-line"></div>
+  </div>
+
+  <div class="prod-row">
+    <div class="prod-img-box">
+      <span class="prod-tag-pill">Hot &amp; Cold</span>
+      <img src="https://static.wixstatic.com/media/d24b0f_ef779d2e4598492c995da50bd079a343~mv2.png" alt="Hot and Cold Holding Cabinets" onerror="this.style.display='none';this.parentElement.querySelector('.prod-img-placeholder').style.display='flex';"/>
+      <div class="prod-img-placeholder" style="display:none;"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="rgba(254,41,25,0.35)" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M3 10h18M8 6V4M16 6V4"/><circle cx="12" cy="15" r="2"/></svg><p>Hot &amp; Cold Holding Cabinets</p></div>
+    </div>
+    <div class="prod-info">
+      <div class="eyebrow">Hot &amp; Cold Holding</div>
+      <h3>Hot &amp; Cold Holding Cabinets</h3>
+      <p>Keep your ingredients fresh and safe with our Cold Holding Cabinets. Built for durability and energy efficiency, these cabinets are designed for busy kitchens, ensuring consistent temperatures and reliable performance every time.</p>
+      <div class="prod-variants">
+        <div class="variant-card"><h4>Hot Holding</h4><p>Maintains food at serving temperature — ideal for buffets and high-volume service lines.</p></div>
+        <div class="variant-card"><h4>Cold Holding</h4><p>Reliable refrigerated storage designed for food safety compliance in busy kitchens.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="prod-row">
+    <div class="prod-img-box">
+      <span class="prod-tag-pill">Hot Plate</span>
+      <img src="https://static.wixstatic.com/media/d24b0f_7394c70d428e49eda8275112d2764973~mv2.png" alt="Commercial Hot Plate" onerror="this.style.display='none';this.parentElement.querySelector('.prod-img-placeholder').style.display='flex';"/>
+      <div class="prod-img-placeholder" style="display:none;"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="rgba(254,41,25,0.35)" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M3 12h18M7 8V5M17 8V5"/></svg><p>Commercial Hot Plate</p></div>
+    </div>
+    <div class="prod-info">
+      <div class="eyebrow">Hot Holding</div>
+      <h3>Commercial Hot Plate</h3>
+      <p>Our commercial Hot Plate is designed for fast, consistent heating in professional kitchens. Built with heavy-duty stainless steel, it ensures durability, easy cleaning, and long-lasting performance — ideal for continuous cooking, reheating, and high-demand operations.</p>
+      <ul class="prod-features">
+        <li>Fast, consistent heat distribution</li>
+        <li>Heavy-duty stainless steel surface</li>
+        <li>Easy to clean — hygienic design</li>
+        <li>Ideal for continuous cooking &amp; reheating</li>
+        <li>Built for high-demand operations</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- COMMERCIAL SINKS -->
+  <div class="cat-heading" id="sinks">
+    <div class="cat-heading-text">
+      <div class="cat-icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M7 8V5M17 8V5M3 13h18M12 13v7"/></svg></div>
+      <h2>Commercial Sinks</h2>
+    </div>
+    <div class="cat-heading-line"></div>
+  </div>
+
+  <div class="prod-row">
+    <div class="prod-img-box">
+      <span class="prod-tag-pill">Sinks</span>
+      <img src="https://static.wixstatic.com/media/d24b0f_207a60db6e154755a54941ed24e49f85~mv2.png" alt="Commercial Kitchen Sink" onerror="this.style.display='none';this.parentElement.querySelector('.prod-img-placeholder').style.display='flex';"/>
+      <div class="prod-img-placeholder" style="display:none;"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="rgba(254,41,25,0.35)" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M7 8V5M17 8V5M3 13h18M12 13v7"/></svg><p>Commercial Sink</p></div>
+    </div>
+    <div class="prod-info">
+      <div class="eyebrow">Commercial Sinks</div>
+      <h3>Commercial Kitchen Sinks</h3>
+      <p>We manufacture a complete range of high-quality commercial kitchen sinks designed to meet the demanding hygiene, durability, and performance requirements of professional kitchens. Ideal for hotels, restaurants, hospitals, food processing units, cloud kitchens, and institutional kitchens.</p>
+      <ul class="prod-features">
+        <li>Food-grade SS 304 stainless steel</li>
+        <li>Single, double &amp; triple bowl configurations</li>
+        <li>Corrosion and stain resistant</li>
+        <li>Hygienic design — easy to clean</li>
+        <li>Custom sizing available on request</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- KNEE OPERATED SINKS -->
+  <div class="cat-heading" id="knee-sinks">
+    <div class="cat-heading-text">
+      <div class="cat-icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M7 8V5M17 8V5M3 13h18M12 13v7"/></svg></div>
+      <h2>Knee Operated Sinks</h2>
+    </div>
+    <div class="cat-heading-line"></div>
+  </div>
+
+  <div class="prod-row">
+    <div class="prod-img-box">
+      <span class="prod-tag-pill">Sinks</span>
+      <img src="https://static.wixstatic.com/media/d24b0f_0eec9448be474b08a8ff59cebbd83303~mv2.png" alt="Knee Operated Sinks" onerror="this.style.display='none';this.parentElement.querySelector('.prod-img-placeholder').style.display='flex';"/>
+      <div class="prod-img-placeholder" style="display:none;"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="rgba(254,41,25,0.35)" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M7 8V5M17 8V5M3 13h18M12 13v7"/></svg><p>Knee Operated Sinks</p></div>
+    </div>
+    <div class="prod-info">
+      <div class="eyebrow">Knee Operated Sinks</div>
+      <h3>Knee Operated Sinks</h3>
+      <p>High-quality knee operated sinks designed for hands-free use, ensuring maximum hygiene and convenience in professional environments. Ideal for hotels, restaurants, hospitals, food processing units, and commercial kitchens.</p>
+      <ul class="prod-features">
+        <li>Food-grade SS 304 stainless steel</li>
+        <li>Single, double &amp; triple bowl configurations</li>
+        <li>Corrosion and stain resistant</li>
+        <li>Hygienic design — easy to clean</li>
+        <li>Custom sizing available on request</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- GREASE TRAPS -->
+  <div class="cat-heading" id="grease">
+    <div class="cat-heading-text">
+      <div class="cat-icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round"><path d="M5 20h14M5 20c0-5 7-9 7-9s7 4 7 9M9 11C9 9 10 5 12 5s3 4 3 6"/></svg></div>
+      <h2>Grease Traps</h2>
+    </div>
+    <div class="cat-heading-line"></div>
+  </div>
+
+  <div class="prod-row">
+    <div class="prod-img-box">
+      <span class="prod-tag-pill">SS 304</span>
+      <img src="https://static.wixstatic.com/media/d24b0f_7d22787cf850454ca5f886c1aed298ab~mv2.png" alt="Stainless Steel Grease Trap" onerror="this.style.display='none';this.parentElement.querySelector('.prod-img-placeholder').style.display='flex';"/>
+      <div class="prod-img-placeholder" style="display:none;"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="rgba(254,41,25,0.35)" stroke-width="1.5" stroke-linecap="round"><path d="M5 20h14M5 20c0-5 7-9 7-9s7 4 7 9M9 11C9 9 10 5 12 5s3 4 3 6"/></svg><p>Grease Trap</p></div>
+    </div>
+    <div class="prod-info">
+      <div class="eyebrow">Grease Traps</div>
+      <h3>Stainless Steel Grease Trap</h3>
+      <p>Our Stainless Steel Grease Trap efficiently captures grease, oil, and food waste before they enter the drainage system. Made from high-quality SS 304 stainless steel, it ensures durability, hygiene, and long-lasting performance.</p>
+      <ul class="prod-features">
+        <li>High-quality SS 304 stainless steel</li>
+        <li>Captures grease, oil &amp; food waste efficiently</li>
+        <li>Prevents pipe blockages &amp; foul odors</li>
+        <li>Installed under sink — saves space</li>
+        <li>Easy access for cleaning &amp; maintenance</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- DRAIN GRATINGS -->
+  <div class="cat-heading" id="drain">
+    <div class="cat-heading-text">
+      <div class="cat-icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg></div>
+      <h2>Drain Gratings</h2>
+    </div>
+    <div class="cat-heading-line"></div>
+  </div>
+
+  <div class="prod-row" style="margin-bottom:60px;">
+    <div class="prod-img-box">
+      <span class="prod-tag-pill">Drain</span>
+      <img src="https://static.wixstatic.com/media/d24b0f_89bf12fec71248f3b69254b242eded02~mv2.png" alt="Drain Grating" onerror="this.style.display='none';this.parentElement.querySelector('.prod-img-placeholder').style.display='flex';"/>
+      <div class="prod-img-placeholder" style="display:none;"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="rgba(254,41,25,0.35)" stroke-width="1.5" stroke-linecap="round"><path d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg><p>Drain Grating</p></div>
+    </div>
+    <div class="prod-info">
+      <div class="eyebrow">Drain Gratings</div>
+      <h3>Commercial Drain Gratings</h3>
+      <p>High-quality drain gratings designed for maximum durability and efficient drainage. Ideal for commercial, industrial, and residential applications — offering reliable performance, corrosion resistance, and easy maintenance.</p>
+      <ul class="prod-features">
+        <li>Maximum durability &amp; efficient drainage</li>
+        <li>Corrosion resistant stainless steel</li>
+        <li>Suits commercial &amp; industrial kitchens</li>
+        <li>Easy to remove, clean &amp; reinstall</li>
+        <li>Multiple sizes available on request</li>
+      </ul>
+    </div>
+  </div>
+
+</div><!-- end .products-wrap -->
+
 <script>
+/* HEIGHT REPORTER — fires on every reflow including browser resize */
 var lastHeight = 0;
 var rafId = null;
 
 function notifyHeight() {
   if (rafId) cancelAnimationFrame(rafId);
   rafId = requestAnimationFrame(function() {
-    /* Temporarily allow scroll to measure true height */
-    document.documentElement.style.overflow = 'visible';
-    document.body.style.overflow = 'visible';
-
     var h = Math.max(
       document.body.scrollHeight,
       document.body.offsetHeight,
       document.documentElement.scrollHeight,
       document.documentElement.offsetHeight
     );
-
-    /* Lock it back immediately */
-    document.documentElement.style.overflow = 'hidden';
-    document.body.style.overflow = 'hidden';
-
     if (h > 50 && h !== lastHeight) {
       lastHeight = h;
       window.parent.postMessage({ type: 'iwResize', height: h }, '*');
@@ -27,24 +322,29 @@ function notifyHeight() {
   });
 }
 
+/* Images */
 document.querySelectorAll('img').forEach(function(img) {
   img.addEventListener('load', notifyHeight);
   img.addEventListener('error', notifyHeight);
 });
 
+/* ResizeObserver on BOTH html and body */
 if (window.ResizeObserver) {
   new ResizeObserver(notifyHeight).observe(document.documentElement);
   new ResizeObserver(notifyHeight).observe(document.body);
 }
 
+/* MutationObserver */
 if (window.MutationObserver) {
   new MutationObserver(notifyHeight).observe(document.body, {
     childList: true, subtree: true, attributes: true, characterData: true
   });
 }
 
+/* Window resize fallback */
 window.addEventListener('resize', notifyHeight);
 
+/* Respond to parent requesting height */
 window.addEventListener('message', function(e) {
   if (e.data && e.data.type === 'requestHeight') {
     lastHeight = 0;
@@ -52,6 +352,7 @@ window.addEventListener('message', function(e) {
   }
 });
 
+/* Page load sequence */
 document.addEventListener('DOMContentLoaded', notifyHeight);
 window.addEventListener('load', function() {
   notifyHeight();
@@ -60,3 +361,6 @@ window.addEventListener('load', function() {
   });
 });
 </script>
+
+</body>
+</html>
