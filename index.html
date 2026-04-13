@@ -115,7 +115,6 @@ body{font-family:var(--f);color:var(--black);background:var(--white);line-height
     <div class="prod-info"><div class="eyebrow">Drain Gratings</div><h3>Commercial Drain Gratings</h3><p>High-quality drain gratings designed for maximum durability and efficient drainage. Ideal for commercial, industrial, and residential applications — offering reliable performance, corrosion resistance, and easy maintenance.</p><ul class="prod-features"><li>Maximum durability &amp; efficient drainage</li><li>Corrosion resistant stainless steel</li><li>Suits commercial &amp; industrial kitchens</li><li>Easy to remove, clean &amp; reinstall</li><li>Multiple sizes available on request</li></ul></div>
   </div>
 </div>
-
 <script>
 function notifyHeight() {
   var h = Math.max(
@@ -124,35 +123,33 @@ function notifyHeight() {
     document.documentElement.scrollHeight,
     document.documentElement.offsetHeight
   );
-  window.parent.postMessage({ type: 'iwResize', height: h }, '*');
+  if (h > 100) {
+    window.parent.postMessage({ type: 'iwResize', height: h }, '*');
+  }
 }
 
-// Fire on every image load — images change layout height
 document.querySelectorAll('img').forEach(function(img) {
   img.addEventListener('load', notifyHeight);
   img.addEventListener('error', notifyHeight);
 });
 
-// ResizeObserver — most reliable, fires on any size change
 if (window.ResizeObserver) {
   new ResizeObserver(notifyHeight).observe(document.body);
 }
 
-// MutationObserver — catches DOM changes
 if (window.MutationObserver) {
-  new MutationObserver(function() { setTimeout(notifyHeight, 30); })
-    .observe(document.body, { childList: true, subtree: true, attributes: true, characterData: true });
+  new MutationObserver(function() { setTimeout(notifyHeight, 50); })
+    .observe(document.body, { childList: true, subtree: true, attributes: true });
 }
 
-// Cascade of timeouts to catch late font/image loads
 document.addEventListener('DOMContentLoaded', notifyHeight);
 window.addEventListener('load', function() {
   notifyHeight();
-  [100, 300, 500, 800, 1200, 2000].forEach(function(t) {
+  [200, 500, 1000, 1500, 2500].forEach(function(t) {
     setTimeout(notifyHeight, t);
   });
 });
-window.addEventListener('resize', notifyHeight);
 </script>
+
 </body>
 </html>
