@@ -4,61 +4,59 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Products — Cookton</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
-
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 :root {
-  --red:#FE2919;--red-light:#FFF0EF;--white:#FFFFFF;--off:#F8F8F8;
-  --black:#111111;--muted:#666666;--border:#E8E8E8;
-  --f:'Poppins',sans-serif;
+  --red:#FE2919;--red-dark:#CC1A0A;--red-light:#FFF0EF;--white:#FFFFFF;--off:#F8F8F8;
+  --black:#111111;--muted:#666666;--border:#E8E8E8;--f:'Poppins',sans-serif;
 }
-
-body{
-  font-family:var(--f);
-  color:var(--black);
-  background:var(--white);
-  overflow-x:hidden;
-}
-
-.products-wrap{
-  max-width:1100px;
-  margin:0 auto;
-  padding:0 60px;
-}
-
-.prod-row{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  margin-bottom:24px;
-  border-radius:16px;
-  overflow:hidden;
-  border:1px solid var(--border);
-}
-
-.prod-img-box{
-  min-height:280px;
-}
-
-.prod-info{
-  padding:36px 40px;
-}
-
+html{scroll-behavior:smooth;}
+body{font-family:var(--f);color:var(--black);background:var(--white);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+.eyebrow{display:inline-block;color:var(--red);font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:10px;}
+.sec-title{font-size:34px;font-weight:800;color:var(--black);line-height:1.2;margin-bottom:12px;}
+.sec-title span{color:var(--red);}
+.products-wrap{max-width:1100px;margin:0 auto;padding:0 60px;}
+.cat-heading{display:flex;align-items:center;gap:16px;padding:60px 0 32px;}
+.cat-heading-line{flex:1;height:1px;background:var(--border);}
+.cat-heading-text{display:flex;align-items:center;gap:10px;}
+.cat-icon-wrap{width:40px;height:40px;background:var(--red);border-radius:10px;display:flex;align-items:center;justify-content:center;}
+.cat-heading h2{font-size:22px;font-weight:800;color:var(--black);white-space:nowrap;}
+.prod-row{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-bottom:24px;border-radius:16px;overflow:hidden;border:1px solid var(--border);background:var(--white);}
+.prod-img-box{background:var(--off);display:flex;align-items:center;justify-content:center;min-height:280px;overflow:hidden;position:relative;}
+.prod-img-box img{width:100%;height:100%;object-fit:cover;display:block;}
+.prod-img-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:40px;width:100%;height:100%;min-height:280px;}
+.prod-img-placeholder p{font-size:12px;color:rgba(254,41,25,0.4);font-weight:500;}
+.prod-tag-pill{position:absolute;top:14px;left:14px;background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:4px 10px;border-radius:4px;letter-spacing:0.8px;text-transform:uppercase;}
+.prod-info{padding:36px 40px;display:flex;flex-direction:column;justify-content:center;}
+.prod-info .eyebrow{margin-bottom:6px;}
+.prod-info h3{font-size:22px;font-weight:800;color:var(--black);margin-bottom:14px;line-height:1.2;}
+.prod-info p{font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:22px;}
+.prod-features{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:24px;}
+.prod-features li{display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--black);}
+.prod-features li::before{content:'';width:18px;height:18px;min-width:18px;background:var(--red-light);border-radius:50%;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18' fill='%23FE2919'%3E%3Cpath fill-rule='evenodd' d='M14.7 5.3a1 1 0 010 1.4l-6 6a1 1 0 01-1.4 0l-3-3a1 1 0 011.4-1.4L8 10.6l5.3-5.3a1 1 0 011.4 0z' clip-rule='evenodd'/%3E%3C/svg%3E");background-size:cover;margin-top:2px;}
+.prod-variants{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:10px;}
+.variant-card{background:var(--off);border:1px solid var(--border);border-radius:10px;padding:16px;border-left:3px solid var(--red);}
+.variant-card h4{font-size:13px;font-weight:700;margin-bottom:5px;color:var(--black);}
+.variant-card p{font-size:12px;color:var(--muted);line-height:1.55;}
 @media(max-width:900px){
   .products-wrap{padding:0 28px;}
   .prod-row{grid-template-columns:1fr;}
+  .prod-img-box{min-height:220px;}
+  .prod-info{padding:28px 24px;}
+  .prod-variants{grid-template-columns:1fr;}
 }
-
 @media(max-width:560px){
   .products-wrap{padding:0 18px;}
+  .cat-heading{padding:40px 0 24px;}
+  .cat-heading h2{font-size:18px;}
+  .prod-info h3{font-size:18px;}
+  .prod-img-box{min-height:180px;}
+  
 }
 </style>
 </head>
-
 <body>
-
 <div class="products-wrap">
   <div class="cat-heading" id="steamers" data-cat="steamers">
     <div class="cat-heading-text"><div class="cat-icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round"><ellipse cx="12" cy="17" rx="8" ry="3"/><path d="M4 17V11M20 17V11M4 11c0-4 8-8 8-8s8 4 8 8"/></svg></div><h2>Steamers</h2></div>
@@ -119,47 +117,42 @@ body{
 </div>
 
 <script>
-// ✅ FIXED HEIGHT CALCULATION
 function notifyHeight() {
-  var h = document.documentElement.scrollHeight;
-
-  window.parent.postMessage({
-    type: 'iwResize',
-    height: h
-  }, '*');
+  var h = Math.max(
+    document.body.scrollHeight,
+    document.body.offsetHeight,
+    document.documentElement.scrollHeight,
+    document.documentElement.offsetHeight
+  );
+  window.parent.postMessage({ type: 'iwResize', height: h }, '*');
 }
 
-// 🔥 Multiple triggers (important)
-function triggerHeight() {
-  [100, 300, 600, 1000, 1500, 2000].forEach(t => {
-    setTimeout(notifyHeight, t);
-  });
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  notifyHeight();
-  triggerHeight();
+// Fire on every image load — images change layout height
+document.querySelectorAll('img').forEach(function(img) {
+  img.addEventListener('load', notifyHeight);
+  img.addEventListener('error', notifyHeight);
 });
 
-window.addEventListener('load', () => {
-  notifyHeight();
-  triggerHeight();
-});
-
-window.addEventListener('resize', notifyHeight);
-
-// Resize observer
+// ResizeObserver — most reliable, fires on any size change
 if (window.ResizeObserver) {
   new ResizeObserver(notifyHeight).observe(document.body);
 }
 
-// respond to parent request
-window.addEventListener("message", function(e){
-  if(e.data === "requestHeight"){
-    notifyHeight();
-  }
-});
-</script>
+// MutationObserver — catches DOM changes
+if (window.MutationObserver) {
+  new MutationObserver(function() { setTimeout(notifyHeight, 30); })
+    .observe(document.body, { childList: true, subtree: true, attributes: true, characterData: true });
+}
 
+// Cascade of timeouts to catch late font/image loads
+document.addEventListener('DOMContentLoaded', notifyHeight);
+window.addEventListener('load', function() {
+  notifyHeight();
+  [100, 300, 500, 800, 1200, 2000].forEach(function(t) {
+    setTimeout(notifyHeight, t);
+  });
+});
+window.addEventListener('resize', notifyHeight);
+</script>
 </body>
 </html>
