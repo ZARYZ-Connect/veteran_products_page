@@ -11,12 +11,28 @@
   --red:#FE2919;--red-dark:#CC1A0A;--red-light:#FFF0EF;--white:#FFFFFF;--off:#F8F8F8;
   --black:#111111;--muted:#666666;--border:#E8E8E8;--f:'Poppins',sans-serif;
 }
-html{scroll-behavior:smooth;}
-body{font-family:var(--f);color:var(--black);background:var(--white);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+html {
+  scroll-behavior: smooth;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+body {
+  font-family: var(--f);
+  color: var(--black);
+  background: var(--white);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  width: 100%;
+  max-width: 100%;
+}
 .eyebrow{display:inline-block;color:var(--red);font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:10px;}
 .sec-title{font-size:34px;font-weight:800;color:var(--black);line-height:1.2;margin-bottom:12px;}
 .sec-title span{color:var(--red);}
-.products-wrap{max-width:1100px;margin:0 auto;padding:0 60px;}
+.products-wrap{width:100%;max-width:1100px;margin:0 auto;padding:0 40px;}
 .cat-heading{display:flex;align-items:center;gap:16px;padding:60px 0 32px;}
 .cat-heading-line{flex:1;height:1px;background:var(--border);}
 .cat-heading-text{display:flex;align-items:center;gap:10px;}
@@ -52,7 +68,6 @@ body{font-family:var(--f);color:var(--black);background:var(--white);line-height
   .cat-heading h2{font-size:18px;}
   .prod-info h3{font-size:18px;}
   .prod-img-box{min-height:180px;}
-  
 }
 </style>
 </head>
@@ -115,6 +130,7 @@ body{font-family:var(--f);color:var(--black);background:var(--white);line-height
     <div class="prod-info"><div class="eyebrow">Drain Gratings</div><h3>Commercial Drain Gratings</h3><p>High-quality drain gratings designed for maximum durability and efficient drainage. Ideal for commercial, industrial, and residential applications — offering reliable performance, corrosion resistance, and easy maintenance.</p><ul class="prod-features"><li>Maximum durability &amp; efficient drainage</li><li>Corrosion resistant stainless steel</li><li>Suits commercial &amp; industrial kitchens</li><li>Easy to remove, clean &amp; reinstall</li><li>Multiple sizes available on request</li></ul></div>
   </div>
 </div>
+
 <script>
 function notifyHeight() {
   var h = Math.max(
@@ -150,6 +166,5 @@ window.addEventListener('load', function() {
   });
 });
 </script>
-
 </body>
 </html>
